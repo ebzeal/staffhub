@@ -1,0 +1,71 @@
+<section id="pages" class="mt-5 bg-light text-muted">
+<div class="container py-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-lg-8">
+    <h2 class="card-title align-self-start">{{staff.firstName}} {{staff.lastName}}  <span class="display-h5">- Staff Profile</span></h2>
+    <em>- {{staff.position.designation}} </em>
+    <em> {{staff.department}} </em>
+    </div>
+    <div class="col-lg-4">
+        <img src="../../public/img/user.jpg" alt="" class="img-fluid">
+    </div>
+    </div>
+    </div>
+    <form action="/staff/edit-profile/{{staff.id}}" method="get">
+    <div class="form-row mt-4">
+        <div class="col-sm-4 pb-3">
+            <label for="firstname">First Name</label>
+        <input type="text" class="form-control" placeholder="First name" name="firstname" value="{{staff.firstName}}" disabled>
+        </div>
+        <div class="col-sm-4 pb-3">
+            <label for="middlename">Middle Name</label>
+        <input type="text" class="form-control" placeholder="Middle name" name="middlename" value="{{staff.middleName}}" disabled>
+        </div>
+        <div class="col-sm-4 pb-3">
+            <label for="middlename">Last Name</label>
+        <input type="text" class="form-control" placeholder="Last name" name="lastname" value="{{staff.lastName}}" disabled>
+        </div>
+                    </div>
+
+    <div class="form-row mt-4">
+        <div class="col-sm-6 pb-3">
+        <input type="text" class="form-control" placeholder="Email" name="firstname" value="{{staff.email}}" disabled>
+        </div>
+        <div class="col-sm-6 pb-3">
+        <input type="text" class="form-control" placeholder="Phone Number" name="middlename" value="{{staff.phoneNumber}}" disabled>
+        </div>
+       
+                    </div>
+
+                    <p> Home Address</p>
+                    <div class="form-row mt-4"> 
+       
+    <div class="col-sm-12 col-lg-7 pb-3">
+        <input type="text" name="homeAddress1" id="" class="form-control" value="{{staff.homeAddress.street}}" placeholder="Street Address" disabled >
+    </div>
+    <div class="col-sm-6 col-lg-3 pb-3">
+        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.homeAddress.town}}" placeholder="Town" disabled >
+    </div>
+     <div class="col-sm-6 col-lg-2 pb-3">
+        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.homeAddress.state}}" placeholder="State" disabled >
+    </div>
+    </div>
+
+     <p class="display-h1"> Relations</p>
+                    <div class="form-row mt-4"> 
+       
+    <div class="col-sm-12 col-lg-7 pb-3">
+        <input type="text" name="homeAddress1" id="" class="form-control" value="{{staff.relations.maritalStatus}}" placeholder="Marital Status" disabled >
+    </div>
+    <div class="col-sm-6 col-lg-3 pb-3">
+        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.relations.nextOfKin}}" placeholder="Next of Kin" disabled >
+    </div>
+     <div class="col-sm-6 col-lg-2 pb-3">
+        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.relations.childrenNumber}}" placeholder="No. of Children" disabled >
+    </div>
+    </div>
+        <button type="submit" class="btn btn-primary btn-lg float-right">Edit Profile</button>
+    </form>
+</div>
+</section>

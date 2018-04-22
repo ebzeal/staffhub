@@ -14,6 +14,9 @@ const staffSchema = new Schema({
     email : {
         type : String
     },
+    phoneNumber : {
+        type : String
+    },
     password : {
         type : String
     },
@@ -29,7 +32,11 @@ const staffSchema = new Schema({
         },
         year : {
             type : Number
-        }
+        },
+        date : {
+            type :Date,
+            default : Date.now
+            }
     }],
     homeAddress : [{
         street : {
@@ -40,11 +47,20 @@ const staffSchema = new Schema({
         },
         state : {
             type : String
+        },
+        date : {
+        type :Date,
+        default : Date.now
         }
     }],
     department : [{
-        type : Schema.Types.ObjectId,
-        ref : 'departments'
+        name : {
+            type : String
+        },
+        date : {
+            type : Date,
+            default : Date.now
+        }
     }],
     position : [{
         grade : {
@@ -68,16 +84,20 @@ const staffSchema = new Schema({
     employmentDate : {
         type : Date
     },
-    maritalStatus : {
-        status : {
+    relations : {
+        maritalStatus : {
             type :String
         },
-        partnerName : {
+        nextOfKin : {
             type : String
         },
         childrenNumber : {
             type : Number
-        }
+        },
+        date : {
+            type :Date,
+            default : Date.now
+            }
     },
     medical : {
         type : Schema.Types.ObjectId,
@@ -91,11 +111,16 @@ const staffSchema = new Schema({
         type : String
     },
     staffPriviledge : {
-        type : String
+        type : String,
+        default : 'staff'
     },
     registrationStatus : {
         type : Boolean,
         default : false
+    },
+    date : {
+        type : Date,
+        default : Date.now
     }
 });
 

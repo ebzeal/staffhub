@@ -21,6 +21,9 @@ const staff = require('./routes/staff');
 //load keys
 const keys = require('./config/keys.js');
 
+ //Passport config
+ require('./config/passport')(passport);
+
 //connect mongoose
 mongoose.connect(keys.mongoURI, {})
 .then( () => {console.log('Mongoose Connected')})

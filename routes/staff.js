@@ -7,6 +7,8 @@ const router = express.Router();
 require('../models/Staff');
 const Staff = mongoose.model('staff');
 
+const {ensureAuthenticated, ensureGuest} = require('../helpers/auth');
+
 // Process Registration Form
 router.post('/register', (req,res) => {
     let errors = [];
@@ -33,8 +35,8 @@ router.post('/register', (req,res) => {
         });
     } else {
         Staff.findOne({email : req.body.email})
-        .then(user => {
-            if(user){
+        .then(staff => {
+            if(staff){
                 req.flash ('error_msg', 'Email already registered');
                 res.redirect('/');
             } else {
@@ -55,15 +57,72 @@ router.post('/register', (req,res) => {
                         if(err) throw (err);
                         newStaff.password = hash ;
                         newStaff.save()
-                        .then(user => {
-                            req.flash('succcess_msg', "Registration Succesful. Admin will verify statusbefore you can proceed.");
-                            res.redirect('/staff/profile')
+                        .then(staff => {
+                            req.flash('succcess_msg', "Registration Succesful. Admin will verify status before you can proceed.");
+                            res.redirect(`/staff/profile/${staff.id}`)
                         })
                     })
                 })
             }
         })
     }
+});
+
+//login
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect : '/staff/dashboard',
+        failureRedirect : '/',
+        failureFlash : true
+    }) (req, res, next)
+});
+
+//dashboard 
+router.get('/dashboard', ensureAuthenticated, (req,res) =>{
+    Staff.findOne({staff :req.staff})
+    .then(staff => {
+        if (staff.registrationStatus == false){
+            req.flash('success_msg', 'Registration Succesful. Admin will verify status before you can proceed.')
+            res.redirect('/')
+        } else {
+            res.render('staff/dashboard', {
+                staff:staff
+            });
+        }
+    });
+});
+
+//show profile
+router.get ('/profile/:id', ensureAuthenticated, (req, res) => {
+    Staff.findOne({
+        _id :req.params.id
+    })
+    .then(staff => {
+        if (staff.registrationStatus == false){
+            req.flash('success_msg', 'Registration Succesful. Admin will verify status before you can proceed.')
+            res.redirect('/')
+        } else {
+            res.render('staff/profile', {
+                staff:staff
+            });
+        }
+    });
+});
+
+router.get('/edit-profile/:id', ensureAuthenticated, (req,res) => {
+    Staff.findOne({
+        _id : req.params.id
+    })
+    .then(staff => {
+        if(staff.id != req.params.id || staff.staffPriviledge != 'staff') {
+           // req.flash('error_msg', 'You are not authorized');
+            res.redirect('/dashboard')
+        } else {
+            res.render('staff/edit-profile', {
+                staff : staff
+            });
+        }
+    });
 });
 
 module.exports = router;
