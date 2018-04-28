@@ -1,0 +1,24 @@
+
+<section id="pages">
+<div class="container">
+    <h1>All Staff</h1>
+    <div class="row">
+        {{#each staff}}
+    <div class="col s12 m4">
+    <div class="card">
+        <div class="card-image">
+
+        </div>
+        <div class="card-content center-align">
+            <h4> {{staff.firstName}} {{staff.lastName}} </h4>
+            <p>{{staff.department}}</p>
+            <em>{{staff.position}}</em>
+        </div>
+    </div>
+    </div>
+    {{!-- {{else}}
+    <p>No staff found</p> --}}
+    {{/each}}
+    </div>
+</div>
+</section>

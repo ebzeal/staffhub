@@ -1,0 +1,59 @@
+<section id="pages">
+  <div class="container">
+    <h1>All Staff</h1>
+    <div class="row">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Department</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allstaff}}
+
+          <tr>
+            <th scope="row">
+              <script>
+                for (let i = 1; i < allstaff.length - 1; i++) {
+                  print`${i}`;
+                }
+              </script>
+            </th>
+            <td>
+              <a href="../../../admin/staffprofile/{{id}}">{{firstName}}</a>
+            </td>
+            <td>{{lastName}}</td>
+            <td>{{email}}</td>
+            <td>{{department}}</td>
+            <td>{{#ifApproved registrationStatus}} Approved {{else}} Pending {{/ifApproved}}
+            </td>
+            <td>
+              {{#ifApproved registrationStatus}}
+              <td class="ml-auto">
+                <a href="/admin/unapprove/{{id}}" class="btn btn-light btn-block">Unapprove</a>
+              </td>
+
+              {{else}}
+              <td class="ml-auto">
+                <a href="/admin/approve/{{id}}" class="btn btn-dark btn-block">Approve</a>
+              </td>
+              {{/ifApproved}}
+              <td class="ml-auto">
+                <form action="/staff/{{id}}?_method=DELETE" method="POST">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                </form>
+              </td>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

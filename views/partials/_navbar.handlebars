@@ -7,34 +7,43 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       {{#if staff}}
-      <li class="nav-item"><a class="nav-link" onclick="openNav()" href="#">&#9776; ADMIN </a></li> 
+      
+        {{#ifAdmin staff.staffPriviledge}} 
+        <li class="nav-item">
+          <a class="nav-link" onclick="openNav()" href="#">&#9776; ADMIN </a> 
+          </li>
+           {{else}}
+       
+
+    {{/ifAdmin}}
+      
       <li class="nav-item">
         <a class="nav-link" href="/staff/dashboard">Home</a>
       </li>
-      <li class="nav-item">
+      {{!-- <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
-      </li>
+      </li> --}}
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle"data-toggle="dropdown">Account</a>
         <div class="dropdown-menu">
-          <a href="/accounts/payslip" class="dropdown-item">Pay Slip</a>
-          <a href="/accounts/loan" class="dropdown-item">Loan</a>
+          <a href="/accounts/payslip/{{staff.id}}" class="dropdown-item">Pay Slip</a>
+          <a href="/accounts/loan/{{staff.id}}" class="dropdown-item">Loan</a>
         </div>
       </li>
       <li class="nav-item">
-        <a href="/hr" class="nav-link">HR</a>
+        <a href="/hr/{{staff.id}}" class="nav-link">HR</a>
       </li>
       <li class="nav-item">
         <a href="/staff/stafflist" class="nav-link">Staff List</a>
       </li>
       <li class="nav-item">
-        <a href="/staff/logout" class="nav-link">Logout</a>
+        <a href="../logout" class="nav-link">Logout</a>
       </li>
        <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hello {{staff.firstName}} </a>
         <div class="dropdown-menu">
           <a href="/dashboard" class="dropdown-item">My Dashboard</a>
-          <a href="/staff/profile" class="dropdrown-item">My Profile</a>
+          <a href="/staff/profile/{{staff.id}}" class="dropdrown-item">My Profile</a>
         </div>
       </li>
       {{else}}

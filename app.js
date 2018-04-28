@@ -14,16 +14,30 @@ const app = express();
 //load model module
 require('./models/Staff');
 
+//Passport config
+require('./config/passport')(passport);
+
 //load routes
 const index = require('./routes/index');
 const staff = require('./routes/staff');
+const admin = require('./routes/admin');
 
 //load keys
 const keys = require('./config/keys.js');
 
- //Passport config
- require('./config/passport')(passport);
+//Handlebars helpers
+const {
+    truncate,
+    stripTags,
+    formatDate,
+    select,
+    editIcon,
+    ifAdmin,
+    ifApproved
+} = require('./helpers/hbs')
 
+//Map global promise
+mongoose.Promise = global.Promise;
 //connect mongoose
 mongoose.connect(keys.mongoURI, {})
 .then( () => {console.log('Mongoose Connected')})
@@ -34,8 +48,18 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 //handlebars middleware
-app.engine('handlebars', exphbs({ defaultLayout:'main'}) );
-app.set('view engine', 'handlebars');
+app.engine('handlebars', exphbs({
+    helpers :{
+      truncate : truncate,
+      stripTags :stripTags,
+      formatDate : formatDate,
+      select:select,
+      editIcon : editIcon,
+      ifAdmin : ifAdmin,
+      ifApproved : ifApproved
+    },
+    defaultLayout:'main'}));
+  app.set('view engine', 'handlebars');
 
 
 //middleware for express session
@@ -69,6 +93,7 @@ app.use(function(req,res,next) {
 //use routes
 app.use('/', index);
 app.use('/staff', staff);
+app.use('/admin', admin);
 
 
 const port = process.env.PORT||3000;

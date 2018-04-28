@@ -11,6 +11,11 @@ const {ensureAuthenticated, ensureGuest} = require('../helpers/auth');
 
 router.get('/about', (req,res) => {
     res.render('index/about');
-} )
+} );
+
+router.get('/logout', (req,res) => {
+    req.logout();
+    res.redirect('/')
+});
 
 module.exports = router;

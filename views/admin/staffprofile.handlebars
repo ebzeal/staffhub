@@ -1,0 +1,112 @@
+<section id="pages" class="mt-5 bg-light text-muted">
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="col-lg-8">
+                    <h2 class="card-title align-self-start">{{staff.firstName}} {{staff.lastName}}
+                        <span class="display-h5">- Staff Profile</span>
+                    </h2>
+                    <em> {{staff.department}}
+                    </em>
+                    <em>- {{staff.position.designation}}
+                        <a href="/admi/staff-position/{{staff.id}}">see history</a>
+                    </em>
+                    <div class="row">
+                        <p class="card bg-light text-dark p-3 h6">Employment Status : {{staff.employeeStatus}} </p>&nbsp;
+                        <p class="card bg-secondary text-dark p-3 h6">Staff Priviledge : {{staff.staffPriviledge}} </p>&nbsp;
+                        <p class="card bg-dark text-white p-3 h6"> Registration Status : {{staff.registrationStatus}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <img src="../../public/img/user.jpg" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped col-lg-7">
+                {{!--
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead> --}}
+                <tbody>
+                    <tr>
+                        <td class="text-muted">First Name</td>
+                        <td class="h6">{{staff.firstName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Middle Name</td>
+                        <td class="h6">{{staff.middleName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Last Name</td>
+                        <td class="h6">{{staff.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Email</td>
+                        <td class="h6">{{staff.email}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Phone Number</td>
+                        <td class="h6">{{staff.phoneNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Home Address</td>
+                        <td class="h6">{{staff.homeAddress}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Qualifications</td>
+                        <td class="h6">{{staff.qualification}}
+                            <a href="/admin/staff-qualification/{{staff.id}}">see all</a>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td class="text-muted">Employment Date</td>
+                        <td class="h6 row">
+                            <a href="#employmentDateModal" data-toggle="modal" data-target="#employmentDateModal">{{formatDate staff.employmentDate 'MMMM Do YYYY'}}</a>
+                            {{> _employmentdatemodal}}
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td class="text-muted">Appraisal</td>
+                        <td class="h6 row">
+                            <a href="../../../admin/appraisal/{{staff.id}}">View Appraisals</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td class="text-muted">Personal Life</td>
+                        <td class="h6 row">
+                            <a href="../../../admin/personal-life/{{staff.id}}">View</a>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td class="text-muted">Medicals</td>
+                        <td class="h6 row">
+                            <a href="../../../admin/medicals/{{staff.id}}">View</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td class="text-muted">Financials</td>
+                        <td class="h6 row">
+                            <a href="../../../admin/account/{{staff.id}}">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card col-lg-4 ml-auto">
+                <div class="card-title">
+                    Other Details
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
