@@ -1,0 +1,47 @@
+<div class="modal fade text-dark" id="edit-profileModal" tabindex="-1" role="dialog" aria-labelledby="edit-profileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-muted" id="edit-profileModalTitle">Edit Contact Details</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/staff/edit-profile/{{staff.id}}" method="POST" class="col s12">
+                    <div class="card px-3 mb-2">
+                        <div class="row mt-4">
+                            <div class="col-sm-4 pb-3">
+                                <label for="firstname">First Name</label>
+                                <input type="text" class="form-control" placeholder="First name" name="firstname" value="{{staff.firstName}}">
+                            </div>
+                            <div class="col-sm-4 pb-3">
+                                <label for="middlename">Middle Name</label>
+                                <input type="text" class="form-control" placeholder="Middle name" name="middlename" value="{{staff.middleName}}">
+                            </div>
+                            <div class="col-sm-4 pb-3">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Last name" name="lastname" value="{{staff.lastName}}">
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-4">
+                            <div class="col-sm-6 pb-3">
+                                <input type="text" class="form-control" placeholder="Email" name="email" value="{{staff.email}}">
+                            </div>
+                            <div class="col-sm-6 pb-3">
+                                <input type="text" class="form-control" placeholder="Phone Number" name="phone" value="{{staff.phoneNumber}}">
+                            </div>
+
+                        </div>
+
+                        <button type="submit" href="" class="btn ml-auto btn-primary mb-1">
+                            <em>save changes</em>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

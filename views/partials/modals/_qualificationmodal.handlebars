@@ -1,0 +1,43 @@
+<div class="modal fade text-dark" id="qualificationmodal" tabindex="-1" role="dialog" aria-labelledby="qualificationmodalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-muted" id="qualificationmodalTitle">Qualification history for {{staff.firstName}} {{staff.lastName}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date Ammended</th>
+                                <th scope="col">Qualification</th>
+                                <th scope="col">Institution</th>
+                                <th scope="col">Year</th>
+                            </tr>
+                        </thead>
+                        {{#each staff.qualification}}
+                        <tr>
+                            <td class="text-muted">{{formatDate date 'MMMM Do YYYY'}}</td>
+                            <td class="h6">{{qualificationName}}
+                            </td>
+                            <td>{{institution}}</td>
+                            <td>{{year}}</td>
+                        </tr>
+                        {{else}}
+                        <p>No Qualification has been supplied by {{staff.firstName}}</p>
+                        {{/each}}
+                    </table>
+                </form>
+            </div>
+            {{!--
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block">Login</button>
+            </div> --}}
+        </div>
+    </div>
+</div>

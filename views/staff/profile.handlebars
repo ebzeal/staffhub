@@ -1,71 +1,164 @@
 <section id="pages" class="mt-5 bg-light text-muted">
-<div class="container py-5">
-    <div class="card">
-        <div class="card-body">
-            <div class="col-lg-8">
-    <h2 class="card-title align-self-start">{{staff.firstName}} {{staff.lastName}}  <span class="display-h5">- Staff Profile</span></h2>
-    <em>- {{staff.position.designation}} </em>
-    <em> {{staff.department}} </em>
-    </div>
-    <div class="col-lg-4">
-        <img src="../../public/img/user.jpg" alt="" class="img-fluid">
-    </div>
-    </div>
-    </div>
-    <form action="/staff/edit-profile/{{staff.id}}" method="get">
-    <div class="form-row mt-4">
-        <div class="col-sm-4 pb-3">
-            <label for="firstname">First Name</label>
-        <input type="text" class="form-control" placeholder="First name" name="firstname" value="{{staff.firstName}}" disabled>
+    <div class="container py-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-lg-8">
+                    <h2 class="card-title align-self-start">{{staff.firstName}} {{staff.lastName}}
+                        <span class="display-h5">- Staff Profile</span>
+                    </h2>
+                    <em>- {{staff.position.[0].designation}} </em>
+                    <em> {{staff.department.[0]}} </em>
+                </div>
+                <div class="col-lg-4">
+                    <img src="../../public/img/user.jpg" alt="" class="img-fluid">
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4 pb-3">
-            <label for="middlename">Middle Name</label>
-        <input type="text" class="form-control" placeholder="Middle name" name="middlename" value="{{staff.middleName}}" disabled>
-        </div>
-        <div class="col-sm-4 pb-3">
-            <label for="middlename">Last Name</label>
-        <input type="text" class="form-control" placeholder="Last name" name="lastname" value="{{staff.lastName}}" disabled>
-        </div>
+        {{!--
+        <form action="/staff/edit-profile/{{staff.id}}" method="get"> --}}
+            <div class="card px-3 mb-2">
+                <div class="row mt-4">
+                    <div class="col-sm-4 pb-3">
+                        <em class="text-secondary">First Name</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.firstName}}</strong>
+                        </em>
+                    </div>
+                    <div class="col-sm-4 pb-3">
+                        <em class="text-secondary">Middle Name</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.middleName}}</strong>
+                        </em>
+                    </div>
+                    <div class="col-sm-4 pb-3">
+                        <em class="text-secondary">Last Name</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.lastName}}
+                            </strong>
+                        </em>
+                    </div>
+                </div>
+
+                <div class="form-row mt-4">
+                    <div class="col-sm-6 pb-3">
+                        <em class="text-secondary">Email</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.email}}
+                            </strong>
+                        </em>
+                    </div>
+                    <div class="col-sm-6 pb-3">
+                        <em class="text-secondary">Phone Number</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.phoneNumber}}
+                            </strong>
+                        </em>
                     </div>
 
-    <div class="form-row mt-4">
-        <div class="col-sm-6 pb-3">
-        <input type="text" class="form-control" placeholder="Email" name="firstname" value="{{staff.email}}" disabled>
-        </div>
-        <div class="col-sm-6 pb-3">
-        <input type="text" class="form-control" placeholder="Phone Number" name="middlename" value="{{staff.phoneNumber}}" disabled>
-        </div>
-       
+                </div>
+
+                <a href="#edit-profileModal" data-toggle="modal" data-target="#edit-profileModal" class="btn ml-auto btn-primary mb-1">
+                    <em>edit contact details</em>
+                </a>
+            </div>
+            <p> Home Address</p>
+            <div class="card  px-3 mb-2">
+                <div class="form-row mt-4">
+
+                    <div class="col-sm-12 col-lg-7 pb-3">
+                        <em class="text-secondary">Street Address</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.homeAddress.[0].street}}
+                            </strong>
+                        </em>
+
+                    </div>
+                    <div class="col-sm-6 col-lg-3 pb-3">
+                        <em class="text-secondary">Town</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.homeAddress.[0].town}}
+                            </strong>
+                        </em>
+                    </div>
+                    <div class="col-sm-6 col-lg-2 pb-3">
+                        <em class="text-secondary">State</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.homeAddress.[0].state}}
+                            </strong>
+                        </em>
+                    </div>
+                </div>
+                <a href="#edit-profile-addressModal" data-toggle="modal" data-target="#edit-profile-addressModal" class="btn ml-auto btn-primary mb-1">
+                    <em>Edit home Address</em>
+                </a>
+            </div>
+
+            <p class="display-h1"> Relations</p>
+            <div class="card px-3 mb-2">
+                <div class="row mt-4">
+
+                    <div class="col-sm-12 col-lg-7 pb-3">
+
+                        <em class="text-secondary">Marital Status</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.relations.[0].maritalStatus}}
+                            </strong>
+                        </em>
+
+                    </div>
+                    <div class="col-sm-6 col-lg-3 pb-3">
+                        <em class="text-secondary">Next of Kin</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.relations.[0].nextOfKin}}
+                            </strong>
+                        </em>
+                    </div>
+                    <div class="col-sm-6 col-lg-2 pb-3">
+                        <em class="text-secondary">No of children</em> &nbsp;
+                        <em class="h5">
+                            <strong>{{staff.relations.[0].childrenNumber}}
+                            </strong>
+                        </em>
                     </div>
 
-                    <p> Home Address</p>
-                    <div class="form-row mt-4"> 
-       
-    <div class="col-sm-12 col-lg-7 pb-3">
-        <input type="text" name="homeAddress1" id="" class="form-control" value="{{staff.homeAddress.street}}" placeholder="Street Address" disabled >
-    </div>
-    <div class="col-sm-6 col-lg-3 pb-3">
-        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.homeAddress.town}}" placeholder="Town" disabled >
-    </div>
-     <div class="col-sm-6 col-lg-2 pb-3">
-        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.homeAddress.state}}" placeholder="State" disabled >
-    </div>
-    </div>
+                    <a href="#edit-profile-relationsModal" data-toggle="modal" data-target="#edit-profile-relationsModal" class="btn ml-auto btn-primary mb-1">
+                        <em>Edit Relations Details</em>
+                    </a>
+                </div>
+            </div>
 
-     <p class="display-h1"> Relations</p>
-                    <div class="form-row mt-4"> 
-       
-    <div class="col-sm-12 col-lg-7 pb-3">
-        <input type="text" name="homeAddress1" id="" class="form-control" value="{{staff.relations.maritalStatus}}" placeholder="Marital Status" disabled >
+            <p>Qualifications</p>
+            <div class="card px-3 mb-2">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Institution</th>
+                            <th scope="col">Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each staff.qualification}}
+
+                        <tr>
+                            <td> {{qualificationName}} </td>
+                            <td> {{institution}} </td>
+                            <td> {{year}} </td>
+                            <td></td>
+                        </tr>
+                        {{else}}
+                        <p>No Qualifications posted yet</p>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <a href="#edit-profile-qualificationModal" data-toggle="modal" data-target="#edit-profile-qualificationModal" class="btn ml-auto btn-primary mb-1">
+                    <em>Add Qualification</em>
+                </a>
+            </div>
+
     </div>
-    <div class="col-sm-6 col-lg-3 pb-3">
-        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.relations.nextOfKin}}" placeholder="Next of Kin" disabled >
-    </div>
-     <div class="col-sm-6 col-lg-2 pb-3">
-        <input type="text" name="homeAddress2" id="" class="form-control" value="{{staff.relations.childrenNumber}}" placeholder="No. of Children" disabled >
-    </div>
-    </div>
-        <button type="submit" class="btn btn-primary btn-lg float-right">Edit Profile</button>
-    </form>
-</div>
 </section>
+
+
+{{> modals/_edit-profileModal}} {{> modals/_edit-profile-addressModal}} {{> modals/_edit-profile-relationsModal}} {{> modals/_edit-profile-qualificationModal}}

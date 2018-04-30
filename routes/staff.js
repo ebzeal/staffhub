@@ -91,7 +91,7 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => {
 });
 
 //show profile
-router.get("/profile/:id", ensureAuthenticated, ensureGuest, (req, res) => {
+router.get("/profile/:id", ensureAuthenticated, (req, res) => {
   Staff.findOne({
     _id: req.params.id
   }).then(staff => {
@@ -102,33 +102,166 @@ router.get("/profile/:id", ensureAuthenticated, ensureGuest, (req, res) => {
       );
       res.redirect("/");
     } else {
-      res.render("staff/profile", {
+      res.render(`staff/profile`, {
         staff: staff
       });
     }
   });
 });
 
-router.get("/edit-profile/:id", ensureAuthenticated, (req, res) => {
-  Staff.findOne({
-    _id: req.params.id
-  }).then(staff => {
-    if (staff.id != req.params.id || staff.staffPriviledge != "staff") {
-      // req.flash('error_msg', 'You are not authorized');
-      res.redirect("/dashboard");
-    } else {
-      res.render("staff/edit-profile", {
-        staff: staff
-      });
+// router.get("/edit-profile/:id", ensureAuthenticated, (req, res) => {
+//   Staff.findOne({
+//     _id: req.params.id
+//   }).then(staff => {
+//     if (staff.id != req.params.id || staff.staffPriviledge != "staff") {
+//       // req.flash('error_msg', 'You are not authorized');
+//       res.redirect("/dashboard");
+//     } else {
+//       req.flash("succcess_msg", "Changes successfully added to your profile");
+//       res.render(`staff/edit-profile/${staff.id}`, {
+//         staff: staff
+//       });
+//     }
+//   });
+// });
+
+//EDIT STAFF PROFILE
+
+// router.put("/edit-profile/:id", (req, res) => {
+//   Staff.findOne({
+//     _id: req.params.id
+//   }).then(staff => {
+//     const newHomeAddress = {
+//       street: req.body.homeAddress1,
+//       town: req.body.homeAddress2,
+//       state: req.body.homeAddress3
+//     };
+//     const newRelations = {
+//       maritalStatus: req.body.maritalstatus,
+//       nextOfKin: req.body.nextofkin,
+//       childrenNumber: req.body.childrennumber
+//     };
+
+//     staff.homeAddress.unshift(newHomeAddress);
+//     staff.relations.unshift(newRelations);
+
+//     staff.firstName = req.body.firstname;
+//     staff.middleName = req.body.middlename;
+//     staff.lastName = req.body.lastname;
+//     staff.email = req.body.email;
+//     staff.phoneNumber = req.body.phonenumber;
+
+//     staff.save().then(staff => {
+//       res.redirect(`/staff/profile/${staff.id}`);
+//     });
+//   });
+// });
+
+// editprofile
+router.post("/edit-profile/:id", (req, res) => {
+  let staffid = req.params.id;
+  Staff.update(
+    {
+      _id: req.params.id
+    },
+    {
+      $set: {
+        firstName: req.body.firstname,
+        middleName: req.body.middlename,
+        lastName: req.body.lastname,
+        email: req.body.email,
+        phoneNumber: req.body.phone
+      }
     }
+  ).then(staff => {
+    res.redirect(`/staff/profile/${staffid}`);
   });
 });
 
-router.get("/all-staff-admin", ensureAuthenticated, (req, res) => {
-  Staff.find({}).then(staff => {
-    res.render("staff/all-staff", {
-      staff: staff
-    });
+//editaddress
+router.post("/edit-profile-address/:id", (req, res) => {
+  let staffid = req.params.id;
+  Staff.update(
+    {
+      _id: req.params.id
+    },
+    {
+      $push: {
+        homeAddress: {
+          $each: [
+            {
+              street: req.body.homeAddress1,
+              town: req.body.homeAddress2,
+              state: req.body.homeAddress3
+            }
+          ],
+          $position: 0
+        }
+      }
+    }
+  ).then(staff => {
+    res.redirect(`/staff/profile/${staffid}`);
   });
 });
+
+//editrelations
+router.post("/edit-profile-relations/:id", (req, res) => {
+  let staffid = req.params.id;
+  Staff.update(
+    {
+      _id: req.params.id
+    },
+    {
+      $push: {
+        relations: {
+          $each: [
+            {
+              maritalStatus: req.body.maritalstatus,
+              nextOfKin: req.body.nextofkin,
+              childrenNumber: req.body.childrennumber
+            }
+          ],
+          $position: 0
+        }
+      }
+    }
+  ).then(staff => {
+    res.redirect(`/staff/profile/${staffid}`);
+  });
+});
+
+//editqualification
+router.post("/edit-profile-qualification/:id", (req, res) => {
+  let staffid = req.params.id;
+  Staff.update(
+    {
+      _id: req.params.id
+    },
+    {
+      $push: {
+        qualification: {
+          $each: [
+            {
+              qualificationName: req.body.qualificationname,
+              institution: req.body.institution,
+              year: req.body.year
+            }
+          ],
+          $position: 0
+        }
+      }
+    }
+  ).then(staff => {
+    res.redirect(`/staff/profile/${staffid}`);
+  });
+});
+
+// router.get("/all-staff-admin", ensureAuthenticated, (req, res) => {
+//   Staff.find({}).then(staff => {
+//     res.render("staff/all-staff", {
+//       staff: staff
+//     });
+//   });
+// });
+
 module.exports = router;

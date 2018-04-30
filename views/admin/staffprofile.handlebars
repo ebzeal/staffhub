@@ -54,12 +54,17 @@
                     </tr>
                     <tr>
                         <td class="text-muted">Home Address</td>
-                        <td class="h6">{{staff.homeAddress}}</td>
+                        <td class="h6">{{staff.homeAddress.[0].street}}
+                            <br> {{staff.homeAddress.[0].town}}.
+                            <br> {{staff.homeAddress.[0].state}}
+                            <a href="#homeAddressModal" data-toggle="modal" data-target="#homeAddressModal" class="ml-auto">See history</a>
+
+                        </td>
                     </tr>
                     <tr>
                         <td class="text-muted">Qualifications</td>
-                        <td class="h6">{{staff.qualification}}
-                            <a href="/admin/staff-qualification/{{staff.id}}">see all</a>
+                        <td class="h6">{{staff.qualification.[0].qualificationName}}
+                            <a href="#qualificationmodal" data-toggle="modal" data-target="#qualificationmodal" class="ml-auto">See all</a>
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +72,7 @@
                         <td class="text-muted">Employment Date</td>
                         <td class="h6 row">
                             <a href="#employmentDateModal" data-toggle="modal" data-target="#employmentDateModal">{{formatDate staff.employmentDate 'MMMM Do YYYY'}}</a>
-                            {{> _employmentdatemodal}}
+
                         </td>
                     </tr>
                     <tr>
@@ -110,3 +115,5 @@
         </div>
     </div>
 </section>
+
+{{> modals/_homeAddressmodal}} {{> modals/_employmentdatemodal}} {{> modals/_qualificationmodal}}
